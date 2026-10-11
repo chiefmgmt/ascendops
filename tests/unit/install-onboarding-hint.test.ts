@@ -14,7 +14,11 @@ describe('installer onboarding launch hint', () => {
   it('uses two PowerShell 5 and 7 compatible commands with literal path quoting', () => {
     expect(hint(true, "C:\\Users\\O'Brien $home\\ascendops"))
       .toBe("Set-Location -LiteralPath 'C:\\Users\\O''Brien $home\\ascendops'\nclaude /onboarding");
-    expect(source).toContain("IS_WINDOWS ? 'these two commands in order' : 'this single command'");
+    expect(source).toContain("IS_WINDOWS ? 'these two commands in order in PowerShell' : 'this single command'");
+  });
+  it.each(['\u2018', '\u2019', '\u201A', '\u201B'])('escapes PowerShell curly quote %s', (quote) => {
+    expect(hint(true, `C:\\Users\\O${quote}Brien\\ascendops`))
+      .toBe(`Set-Location -LiteralPath 'C:\\Users\\O${quote}${quote}Brien\\ascendops'\nclaude /onboarding`);
   });
   it.each(['darwin', 'linux'])('preserves the existing %s command', () => {
     expect(hint(false, '/synthetic home/ascendops'))
