@@ -113,7 +113,8 @@ The installer:
 When it finishes you'll see **"AscendOps installed successfully!"** and a
 copy-paste command to launch onboarding.
 
-**One last question.** Right after the success message, the installer asks:
+**One last question.** Near the end, when you run it in a normal terminal window,
+the installer asks:
 
 ```
 Enable unattended Bypass Permissions mode? [y/N]
@@ -121,8 +122,16 @@ Enable unattended Bypass Permissions mode? [y/N]
 
 Answer N (No) unless you know you want agents to run without asking permission.
 No keeps Claude's permission prompts on, which is safer, but an agent running on
-its own 24/7 can sit waiting for an approval nobody sees. You can switch it on
-later by running `node installer/consent-gate.mjs --grant` in `~/ascendops`.
+its own 24/7 can sit waiting for an approval nobody sees.
+
+To switch it on later:
+
+1. In `~/ascendops`, run `node installer/consent-gate.mjs --grant`. Agents you
+   create after this start in unattended mode.
+2. Agents you already created keep their own setting. For each one, open
+   `~/ascendops/orgs/<your-org>/agents/<agent-name>/config.json`, change
+   `"dangerously_skip_permissions": false` to `true`, save, then run
+   `ascendops restart <agent-name>`.
 
 ## Step 1.4 — Open the installed folder in Claude Code
 
