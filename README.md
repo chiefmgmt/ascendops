@@ -93,7 +93,6 @@ pm2 start ecosystem.config.js && pm2 save && pm2 startup
 # Windows: pm2 startup is unsupported. Use Task Scheduler instead:
 #   powershell -ExecutionPolicy Bypass -File scripts\install-windows-pm2-startup.ps1
 ```
-
 ---
 
 ## Requirements
@@ -167,4 +166,3 @@ cortextOS has undergone a dedicated security hardening sprint covering prompt in
 
 MIT — see [LICENSE](./LICENSE).
 # deployment test
-# cron test run
